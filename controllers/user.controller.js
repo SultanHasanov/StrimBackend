@@ -33,8 +33,10 @@ module.exports.userController = {
     try {
       const patch = await User.findByIdAndUpdate(req.params.id, {
         ...req.body
-      }
-      )
+
+      } 
+    )
+     res.json('Юзер изменен')
       res.json('Юзер изменен')
     } catch (error) {
       res.json("error");
