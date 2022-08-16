@@ -7,6 +7,8 @@ router.post('/cart/:userId', cartController.postCart);
 router.patch('/cart/add/:cartId', authMiddleware, cartController.productAddCart);
 router.patch('/cart/inc/:cartId', authMiddleware, cartController.productIncCart);
 router.patch('/cart/dec/:cartId', authMiddleware, cartController.productDecCart);
+router.patch('/cart/delete/:cartId', authMiddleware, cartController.productDeleteCart)
+router.patch('/cart/reset/:cartId', authMiddleware, cartController.productResetCart)
 
 // router.patch('/cart', );
 

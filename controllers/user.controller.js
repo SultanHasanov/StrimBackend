@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Cart = require("../models/Cart.model.js");
+const Favorite = require("../models/Favorite.model.js");
 
 module.exports.userController = {
   addUser: async (req, res) => {
@@ -18,7 +19,10 @@ module.exports.userController = {
 
       await Cart.create({
         userId: user._id
-    })
+      })
+      await Favorite.create({
+        userId: user._id
+      })
       res.json(user);
     } catch (error) {
       res.json(error);
@@ -29,9 +33,9 @@ module.exports.userController = {
     try {
       const patch = await User.findByIdAndUpdate(req.params.id, {
         ...req.body
-      } 
-    )
-     res.json('Юзер изменен')
+      }
+      )
+      res.json('Юзер изменен')
     } catch (error) {
       res.json("error");
     }
@@ -43,13 +47,13 @@ module.exports.userController = {
     const candidate = await User.findOne({ login });
 
     if (!candidate) {
-      return res.json("Неверный логин");
+      return res.json("Неверный логин или пароль");
     }
 
     const valid = await bcrypt.compare(password, candidate.password);
 
     if (!valid) {
-      return res.json("Неверный пароль");
+      return res.json("Неверный логин или пароль");
     }
 
     const payload = {
