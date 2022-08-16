@@ -2,6 +2,7 @@ const User = require("../models/User.model.js");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const Cart = require("../models/Cart.model.js");
 
 module.exports.userController = {
   addUser: async (req, res) => {
@@ -15,6 +16,9 @@ module.exports.userController = {
 
       const user = await User.create({ name: name, surname: surname, phone: phone, icon: icon, login: login, password: hash });
 
+      await Cart.create({
+        userId: user._id
+    })
       res.json(user);
     } catch (error) {
       res.json(error);
