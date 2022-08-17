@@ -5,8 +5,17 @@ const productSchema = mongoose.Schema({
         price: Number,
         category: String,
         left: Number,
-        image: String,
-        hit: Boolean,
+        images: [
+                mongoose.Schema({
+                        color: String,
+                        image: String,
+                }),
+        ],
+        hit: {
+                type: Boolean,
+                default: false
+        },
+        size: String
 });
 
 const Product = mongoose.model('Product', productSchema);
