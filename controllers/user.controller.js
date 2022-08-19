@@ -67,7 +67,11 @@ module.exports.userController = {
       expiresIn: "24h",
     });
 
-    return res.json(token);
+    return res.json({
+        token,
+        id: payload.id,
+        login: payload.login
+    });
   },
 
 
