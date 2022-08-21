@@ -74,7 +74,15 @@ module.exports.userController = {
     });
   },
 
-
+getProfile: async (req, res) => {
+ try {
+      const profile = await User.findById(req.params.id
+    )
+     res.json(profile)
+    } catch (error) {
+      res.json("error");
+    }
+},
   getUsers: async (req, res) => {
     try {
       res.json(await User.find());
